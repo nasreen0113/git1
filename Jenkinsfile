@@ -6,8 +6,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo '${USER}'
-                echo '${microcare}'
+                echo "${USEr}"
+                echo "${microcare}"
             }
         }
          stage('Build1') {
