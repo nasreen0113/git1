@@ -1,9 +1,13 @@
 pipeline {
     agent any
+    environment{
+        microcare='academy'
+    }
     stages {
         stage('Build') {
             steps {
-                echo "${printenv}"
+                echo '${USER}'
+                echo '${microcare}'
             }
         }
          stage('Build1') {
