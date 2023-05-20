@@ -3,8 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-             
-                sh "printenv | sort"
+                echo "${printenv}"
             }
         }
          stage('Build1') {
