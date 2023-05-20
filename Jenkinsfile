@@ -1,15 +1,10 @@
 pipeline {
-    agent {label 'LOCAL'}
- options {
-        // Timeout counter starts AFTER agent is allocated
-    timestamps() 
-        timeout(time: 60, unit: 'SECONDS')
-    }
+    agent any
     stages {
         stage('Build') {
             steps {
              
-                echo 'Building..'
+                sh "printenv | sort"
             }
         }
          stage('Build1') {
@@ -18,11 +13,21 @@ pipeline {
             }
         }
          stage('Build2') {
+              when{
+                  not {
+                 branch "master"
+                  }
+             }
             steps {
                 echo 'Building..'
             }
         }
          stage('Build3') {
+             when {
+                 not{
+                branch "fecth_branch"
+                 }
+             }
             steps {
                 echo 'Building..'
             }
@@ -44,4 +49,5 @@ pipeline {
     }
     
 }
+
 
