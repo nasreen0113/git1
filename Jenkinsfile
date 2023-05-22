@@ -1,56 +1,25 @@
-pipeline {
-    agent any
-    environment{
-        microcare='academy'
-    }
-    stages {
-        stage('Build') {
-            steps {
-                echo '${USEr}'
-                echo '${microcare}'
-            }
+node{
+  def remote = [:]
+  remote.name = 'oraclevm'
+  remote.host = '152.67.160.182'
+  remote.user = 'opc'
+  remote.password = 'Muzammil073#'
+  remote.allowAnyHosts = true
+  stage('Remote SSH') {
+   // writeFile file: 'abc.sh', text: 'ls -lrt'
+   // sshScript remote: remote, script: "abc.sh"
+    sshCommand remote : remote, command: "pwd"
+      sshCommand remote : remote, command: "cd /home"
+    sshCommand remote : remote, command: "pwd"
+      sshCommand remote : remote, command: "ls -lrt"
+  }     
+  
+   stage('Remote SSH 2') {
+   // writeFile file: 'abc.sh', text: 'ls -lrt'
+   // sshScript remote: remote, script: "abc.sh"
+      sshCommand remote : remote, command: "sudo mkdir spider"
+      sshCommand remote : remote, command: "cd spider"
+     sshCommand remote : remote, command: "pwd"
+  }  
         }
-         stage('Build1') {
-            steps {
-                echo 'Building..'
-            }
-        }
-         stage('Build2') {
-              when{
-                  not {
-                 branch "master"
-                  }
-             }
-            steps {
-                echo 'Building..'
-            }
-        }
-         stage('Build3') {
-             when {
-                 not{
-                branch "fecth_branch"
-                 }
-             }
-            steps {
-                echo 'Building..'
-            }
-        }
-    }
-    post { 
-        aborted { 
-            echo 'ABORTED'
-        }
-         success { 
-            echo 'SUCCESS'
-        }
-         failure { 
-            echo 'FAILURE'
-        }
-        changed { 
-            echo 'FAILURE'
-        }
-    }
-    
-}
-
 
